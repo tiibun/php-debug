@@ -105,7 +105,7 @@ class DbgpInstance extends DebugContext
       argu2 = argu.join(" ")
       payload += " " + argu2
     if data
-      payload += " -- " + new Buffer(data, 'ascii').toString('base64')
+      payload += " -- " + new Buffer(data, 'utf8').toString('base64')
     if @socket
       if atom.config.get("php-debug.DebugXDebugMessages")
         console.log("Sending",payload)
@@ -376,7 +376,7 @@ class DbgpInstance extends DebugContext
             if not variable._?
               return result + '(string)""'
             else
-              return result + '(string)"' + new Buffer(variable._, 'base64').toString('ascii') + '"'
+              return result + '(string)"' + new Buffer(variable._, 'base64').toString('utf8') + '"'
           else
             console.error "Unhandled context variable encoding: " + variable.$.encoding
       when "array"
@@ -434,7 +434,7 @@ class DbgpInstance extends DebugContext
             if not variable._?
               datum.value = ""
             else
-              datum.value = new Buffer(variable._, 'base64').toString('ascii')
+              datum.value = new Buffer(variable._, 'base64').toString('utf8')
           else
             console.error "Unhandled context variable encoding: " + variable.$.encoding
       when "array"
